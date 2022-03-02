@@ -25,11 +25,11 @@ const LoginPage = () => {
         password: password,
       }),
     }).then((data) => {
-      console.log("data");
       dispatch(setAccessToken(data.accessToken));
       dispatch(setUser(data.user));
     });
   };
+
   return (
     <div className="innerPage loginPage">
       <div className="container-fluid">
