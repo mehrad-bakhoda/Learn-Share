@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../lib/prisma";
 
-const prisma = new PrismaClient();
 export default async function handle(req, res) {
   if (req.body.name) {
     const category = await prisma.category.findMany({

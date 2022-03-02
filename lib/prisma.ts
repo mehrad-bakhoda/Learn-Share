@@ -1,8 +1,3 @@
-/**
- * Avoid instantiating too many instances of Prisma, especially in development.
- *
- * @link https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices#problem
- */
 
 import { PrismaClient } from '@prisma/client'
 

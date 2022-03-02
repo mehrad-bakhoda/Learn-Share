@@ -3,10 +3,9 @@ import {
   createRefreshToken,
   sendRefreshToken,
 } from "../../functions/auth";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
+import { prisma } from "../../lib/prisma";
 
 export default async function handle(req, res) {
   if (req.method === "POST") {

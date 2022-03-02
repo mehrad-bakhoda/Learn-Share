@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../../../lib/prisma";
 
-const prisma = new PrismaClient();
 export default async function handle(req, res) {
   if (req.body.title) {
     const subject = await prisma.subject.create({

@@ -5,9 +5,7 @@ import {
   createRefreshToken,
 } from "../../functions/auth";
 import cookie from "cookie";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../lib/prisma";
 
 export default async function refresh_token(req, res) {
   if (req.method === "POST") {

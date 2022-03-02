@@ -1,6 +1,6 @@
 {
-  "name": "nextjs",
-  "description": "Schema for a blog built with Next.js",
+  "name": "resource-finder",
+  "description": "An app to help you find best resources of every category and every topic",
   "license": "UNLICENSED",
   "dependencies": {
     "@prisma/client": "3.4.2",

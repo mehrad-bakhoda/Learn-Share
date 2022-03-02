@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import {
   createAccessToken,
   createRefreshToken,
@@ -6,8 +5,7 @@ import {
 } from "../../functions/auth";
 
 import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../lib/prisma";
 
 export default async function handle(req, res) {
   const salt = await bcrypt.genSalt(10);
