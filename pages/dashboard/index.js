@@ -36,7 +36,6 @@ function Protected() {
       dispatch(setUser(data.user));
     });
   };
-  console.log("meow");
   if (loading) {
     return <div>Loading...</div>;
   } else {
