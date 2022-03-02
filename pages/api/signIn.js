@@ -15,19 +15,21 @@ export default async function handle(req, res) {
         email,
       },
     });
+    if (user) {
+      const userForTheClient = {
+        id: user.id,
+        email: user.email,
+      };
 
-    const userForTheClient = {
-      id: user.id,
-      email: user.email,
-    };
-
-    if (bcrypt.compareSync(password, user.password)) {
-      const token = createRefreshToken(user);
-      sendRefreshToken(res, token);
-      const accessToken = createAccessToken(user);
-      res.send({ user: userForTheClient, accessToken });
-    } else {
-      res.status(404).send();
+      if (bcrypt.compareSync(password, user.password)) {
+        const token = createRefreshToken(user);
+        sendRefreshToken(res, token);
+        const accessToken = createAccessToken(user);
+        res.send({ user: userForTheClient, accessToken });
+      } else {
+        res.status(404).send();
+      }
     }
+    res.status(404).send();
   }
 }

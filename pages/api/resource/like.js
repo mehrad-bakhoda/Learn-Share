@@ -28,22 +28,26 @@ export default async function handle(req, res) {
         if (user) {
           if (user.likes.find((e) => e === resource.id) === undefined) {
             if (user.dislikes.find((e) => e === resource.id) === undefined) {
+              console.log("moew");
               user.likes.push(resource.id);
 
               const like = await prisma.resource.update({
                 where: { id: +req.query.id },
                 data: {
                   likes: { increment: 1 },
-                  user: {
-                    update: {
-                      likes: user.likes,
-                    },
-                  },
                 },
               });
 
               if (like) {
-                return like.likes;
+                const update = await prisma.user.update({
+                  where: { id: payload.userId },
+                  data: {
+                    likes: user.likes,
+                  },
+                });
+                if (update) {
+                  return like.likes;
+                }
               }
             } else {
               user.likes.push(resource.id);
@@ -54,17 +58,20 @@ export default async function handle(req, res) {
                 data: {
                   likes: { increment: 1 },
                   dislikes: { increment: -1 },
-                  user: {
-                    update: {
-                      likes: user.likes,
-                      dislikes: user.dislikes,
-                    },
-                  },
                 },
               });
 
               if (like) {
-                return like.likes;
+                const update = await prisma.user.update({
+                  where: { id: payload.userId },
+                  data: {
+                    likes: user.likes,
+                    dislikes: user.dislikes,
+                  },
+                });
+                if (update) {
+                  return like.likes;
+                }
               }
             }
           }

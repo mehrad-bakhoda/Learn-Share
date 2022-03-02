@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken, setUser } from "../../app/features/tokenSlice";
 
 const SignInPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -21,6 +24,8 @@ const SignInPage = () => {
   }, [token.accessToken]);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+
     const data = {
       email: email,
       password: password,
@@ -32,11 +37,14 @@ const SignInPage = () => {
     })
       .then((res) => {
         if (res.status === 409) throw new Error("Please use other email");
+        if (res.status === 400) throw new Error("Fill the fields correctly");
+        if (res.status === 406) throw new Error("Couldn't create your account");
         return res.json();
       })
       .then((data) => {
         dispatch(setAccessToken(data.accessToken));
         dispatch(setUser(data.user));
+        router.replace("/dashboard");
       })
       .catch((e) => {
         return console.log(e);

@@ -34,16 +34,19 @@ export default async function handle(req, res) {
                 where: { id: +req.query.id },
                 data: {
                   dislikes: { increment: 1 },
-                  user: {
-                    update: {
-                      dislikes: user.dislikes,
-                    },
-                  },
                 },
               });
 
               if (dislike) {
-                return dislike.dislikes;
+                const update = await prisma.user.update({
+                  where: { id: payload.userId },
+                  data: {
+                    dislikes: user.dislikes,
+                  },
+                });
+                if (update) {
+                  return dislike.dislikes;
+                }
               }
             } else {
               user.dislikes.push(resource.id);
@@ -54,17 +57,20 @@ export default async function handle(req, res) {
                 data: {
                   likes: { increment: -1 },
                   dislikes: { increment: 1 },
-                  user: {
-                    update: {
-                      likes: user.likes,
-                      dislikes: user.dislikes,
-                    },
-                  },
                 },
               });
 
               if (dislike) {
-                return dislike.dislikes;
+                const update = await prisma.user.update({
+                  where: { id: payload.userId },
+                  data: {
+                    likes: user.likes,
+                    dislikes: user.dislikes,
+                  },
+                });
+                if (update) {
+                  return dislike.dislikes;
+                }
               }
             }
           }

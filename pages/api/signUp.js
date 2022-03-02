@@ -26,11 +26,16 @@ export default async function handle(req, res) {
           password: `${password}`,
         },
       });
-      const token = createRefreshToken(user);
-      sendRefreshToken(res, token);
+      if (user) {
+        const token = createRefreshToken(user);
+        sendRefreshToken(res, token);
 
-      const accessToken = createAccessToken(user);
-      res.send({ user, accessToken });
+        const accessToken = createAccessToken(user);
+        res.send({ user, accessToken });
+      }
+      res.status(406).send();
     }
+    res.status(400).send();
   }
+  res.status(400).send();
 }

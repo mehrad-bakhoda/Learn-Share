@@ -2,8 +2,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken, setUser } from "../../app/features/tokenSlice";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(false);
@@ -25,6 +28,9 @@ const LoginPage = () => {
         password: password,
       }),
     }).then((data) => {
+      if (data.status == 404) {
+        router.replace("/register");
+      }
       dispatch(setAccessToken(data.accessToken));
       dispatch(setUser(data.user));
     });

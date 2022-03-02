@@ -12,13 +12,13 @@ export const refreshToken = async () => {
 
 export const createAccessToken = (user) => {
   return sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "3h",
   });
 };
 
 export const createRefreshToken = (user) => {
   return sign({ userId: user.id }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: "7d",
+    expiresIn: "15d",
   });
 };
 
