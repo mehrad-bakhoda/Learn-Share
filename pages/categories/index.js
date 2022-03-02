@@ -15,24 +15,25 @@ const CategoriesPage = ({ data }) => {
       <div className="container-fluid">
         <Filters />
         <div className="row">
-          {data.map((category) => {
-            return (
-              <div
-                className="col-lg-3 col-sm-4 col-sm-6 col-12"
-                key={category.id}
-              >
-                <Link href={`/categories/${category.title}/subjects`}>
-                  <a>
-                    <CategoryCard
-                      name={`${category.title}`}
-                      followers={`${category.followers}`}
-                      subjects={`${category.subjectsNumber}`}
-                    />
-                  </a>
-                </Link>
-              </div>
-            );
-          })}
+          {data &&
+            data.map((category) => {
+              return (
+                <div
+                  className="col-lg-3 col-sm-4 col-sm-6 col-12"
+                  key={category.id}
+                >
+                  <Link href={`/categories/${category.title}/subjects`}>
+                    <a>
+                      <CategoryCard
+                        name={`${category.title}`}
+                        followers={`${category.followers}`}
+                        subjects={`${category.subjectsNumber}`}
+                      />
+                    </a>
+                  </Link>
+                </div>
+              );
+            })}
         </div>
       </div>
       <Link href="/upload/category">
@@ -47,12 +48,18 @@ const CategoriesPage = ({ data }) => {
 export default CategoriesPage;
 
 export async function getServerSideProps() {
-  const categories = await prisma.category.findMany();
-  const { json } = superjson.serialize(categories);
-
+  if (prisma.category) {
+    const categories = await prisma.category.findMany();
+    const { json } = superjson.serialize(categories);
+    return {
+      props: {
+        data: json,
+      },
+    };
+  }
   return {
     props: {
-      data: json,
+      data: false,
     },
   };
 }
