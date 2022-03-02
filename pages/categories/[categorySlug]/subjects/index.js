@@ -3,9 +3,7 @@ import Filters from "../../../../Components/Filters";
 import AddButton from "../../../../Components/AddButton";
 import superjson from "superjson";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import { prisma } from "../../../../lib/prisma";
 
 import Link from "next/link";
 import { useRouter } from "next/dist/client/router";

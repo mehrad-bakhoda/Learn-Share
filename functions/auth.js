@@ -1,15 +1,13 @@
 import { sign } from "jsonwebtoken";
 import cookie from "cookie";
 
-export const refreshToken = () => {
-  return fetch("/api/refresh_token", {
+export const refreshToken = async () => {
+  const res = await fetch("/api/refresh_token", {
     method: "POST",
     credentials: "include",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      return data;
-    });
+  });
+  const data = await res.json();
+  return data;
 };
 
 export const createAccessToken = (user) => {

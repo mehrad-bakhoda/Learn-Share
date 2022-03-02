@@ -5,9 +5,7 @@ import ResourceCard from "../../../Components/ResourceCard";
 import Filters from "../../../Components//Filters";
 import superjson from "superjson";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import { prisma } from "../../../lib/prisma";
 import Link from "next/link";
 
 export default function SearchedItem({ data, dataType }) {

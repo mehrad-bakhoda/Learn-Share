@@ -4,9 +4,7 @@ import Link from "next/link";
 import superjson from "superjson";
 import { useRouter } from "next/dist/client/router";
 
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+import { prisma } from "../../../../../../lib/prisma";
 
 function RecoursesPage({ data }) {
   const { query } = useRouter();

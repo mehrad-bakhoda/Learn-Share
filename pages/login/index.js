@@ -29,13 +29,12 @@ const LoginPage = () => {
       dispatch(setUser(data.user));
     });
   };
-
   return (
     <div className="innerPage loginPage">
       <div className="container-fluid">
         {auth === true ? (
           <div>
-            Hello {token.user.email}, you are authenticated so you can visit{" "}
+            you are authenticated so you can visit{" "}
             <Link href="/dashboard"> Dashboard</Link>
           </div>
         ) : (
