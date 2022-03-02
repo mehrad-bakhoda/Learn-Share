@@ -1,0 +1,48 @@
+$textColor: #686e77;
+$bodyColor: #ebedef;
+$blueColor: #35aed7;
+$greenColor: #36dec0;
+$redColor: #e86565;
+$gradient: linear-gradient(45deg, #35aed7, #36dec0);
+$gradientHover: linear-gradient(45deg, #35aed7, #36dec0);
+
+$cardShadow: 0 0 10px -1px #d7d7d7;
+$inputShadow: inset 0 0 10px -1px #d7d7d7;
+
+$radiusS: 0.5rem;
+$radiusB: 1rem;
+
+$font: IRANSans;
+@font-face {
+  font-family: IRANSans;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../public/assets/fonts/IRANSans4/IRANSans_Light.ttf");
+}
+
+@mixin lg {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+@mixin md {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: 769px) {
+    @content;
+  }
+}
+@mixin xs {
+  @media (max-width: 580px) {
+    @content;
+  }
+}
+@mixin xxs {
+  @media (max-width: 400px) {
+    @content;
+  }
+}

@@ -1,0 +1,38 @@
+import { PrismaClient } from "@prisma/client";
+import {
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken,
+} from "../../functions/auth";
+
+import bcrypt from "bcrypt";
+
+const prisma = new PrismaClient();
+
+export default async function handle(req, res) {
+  const salt = await bcrypt.genSalt(10);
+
+  const body = JSON.parse(req.body);
+  if (body.email && body.password && body.passwordConfirmation) {
+    if (body.passwordConfirmation === body.password) {
+      const checkIfExist = await prisma.user.findUnique({
+        where: {
+          email: body.email,
+        },
+      });
+      if (checkIfExist) return res.status(409).send();
+      const password = await bcrypt.hash(body.password, salt);
+      const user = await prisma.user.create({
+        data: {
+          email: `${body.email}`,
+          password: `${password}`,
+        },
+      });
+      const token = createRefreshToken(user);
+      sendRefreshToken(res, token);
+
+      const accessToken = createAccessToken(user);
+      res.send({ user, accessToken });
+    }
+  }
+}

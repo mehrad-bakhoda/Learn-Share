@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["dataproxy"]
 }
 
@@ -8,25 +8,81 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  post_id   Int     @id @default(autoincrement())
-  content   String?
-  title     String
-  author_id Int?
-  author    User?   @relation(fields: [author_id], references: [user_id])
+model Category {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  // updatedAt      DateTime   @updatedAt
+  title          String    @unique @db.VarChar(255)
+  // published      Boolean    @default(false)
+  // author         User?      @relation(fields: [authorId], references: [id])
+  // authorId       Int?
+  subjects       Subject[]
+  subjectsNumber Int       @default(0)
+  // followers      Int?       @default(0)
+  // Resource       Resource[]
+  // Resource       Resource[]
+  User           User?     @relation(fields: [userId], references: [id])
+  userId         Int?
+}
+
+model Subject {
+  id              Int        @id @default(autoincrement())
+  title           String     @unique @db.VarChar(255)
+  createdAt       DateTime   @default(now())
+  // updatedAt       DateTime   @updatedAt
+  // published       Boolean    @default(false)
+  // author          User?      @relation(fields: [authorId], references: [id])
+  category        Category   @relation(fields: [categoryId], references: [id])
+  categoryId      Int
+  // authorId        Int?
+  // Resource        Resource[]
+  // followers       Int?
+  // resourcesNumber Int?
+  resources       Resource[]
+  resourcesNumber Int        @default(0)
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Resource {
+  id        Int      @id @default(autoincrement())
+  title     String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now())
+  // updatedAt       DateTime  @updatedAt
+  url       String   @db.VarChar(255)
+  // published       Boolean   @default(false)
+  // author          User?     @relation(fields: [authorId], references: [id])
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+  // category        Category? @relation(fields: [categoryId], references: [id])
+  subjectId Int
+  likes     Int      @default(0)
+  dislikes  Int      @default(0)
+  price     String   @default("0") @db.VarChar(255)
+  language  String   @default("Not set") @db.VarChar(255)
+  // categoryId      Int?
+  // authorId        Int?
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
 }
 
 model Profile {
-  bio        String?
-  profile_id Int     @id @default(autoincrement())
-  user_id    Int
-  user       User    @relation(fields: [user_id], references: [user_id])
+  id     Int     @id @default(autoincrement())
+  bio    String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId Int     @unique
 }
 
 model User {
-  email    String    @unique
-  name     String?
-  user_id  Int       @id @default(autoincrement())
-  posts    Post[]
-  profiles Profile[]
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  password   String
+  categories Category[]
+  subjects   Subject[]
+  resources  Resource[]
+  createdAt  DateTime   @default(now()) @map(name: "created_at")
+  updatedAt  DateTime   @default(now()) @map(name: "updated_at")
+
+  profile Profile?
+  @@map(name: "users")
 }

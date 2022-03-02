@@ -4,9 +4,23 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@prisma/client": "3.4.2",
-    "next": "11.1.2",
+    "@reduxjs/toolkit": "^1.7.2",
+    "axios": "^0.25.0",
+    "babel-plugin-superjson-next": "^0.4.2",
+    "bcrypt": "^5.0.1",
+    "cookie": "^0.4.2",
+    "dotenv": "^16.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mdbreact": "^4.6.1",
+    "next": "^11.1.4",
+    "next-redux-wrapper": "^7.0.5",
+    "pg": "^8.7.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.6",
+    "sass": "^1.49.7",
+    "superjson": "^1.8.0",
+    "swr": "^1.2.2"
   },
   "devDependencies": {
     "@types/faker": "5.5.9",

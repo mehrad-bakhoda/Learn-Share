@@ -1,0 +1,689 @@
+@import "./_assets";
+
+/*#region General */
+body {
+  direction: rtl;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: $textColor;
+  background-color: $bodyColor;
+  font-family: $font;
+
+  * {
+    box-sizing: border-box;
+    color: $textColor;
+    transition: 0.4s;
+    &:hover,
+    &:before,
+    &:after {
+      transition: 0.4s;
+    }
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: $textColor;
+  text-decoration: none;
+}
+
+.customCard {
+  padding: 1rem;
+  background-color: $bodyColor;
+  border-radius: $radiusB;
+  box-shadow: $cardShadow;
+}
+
+main {
+  position: relative;
+  min-height: 90vh;
+  padding: 1rem 7rem 1rem 1rem;
+  @include sm {
+    padding: 1rem 1rem 5rem;
+  }
+}
+
+.row {
+  width: 100%;
+  margin: 0;
+}
+.container-fluid {
+  width: 100%;
+  padding: 0;
+}
+
+/*#endregion */
+
+/*#region Custom 404 */
+.custom404 {
+  h1 {
+    padding: 0 1rem;
+    width: fit-content;
+    -webkit-background-clip: text;
+    text-align: center;
+    font-size: 11rem;
+    -webkit-text-fill-color: transparent;
+    background-image: $gradient;
+    font-weight: bold;
+    @include xs {
+      font-size: 6rem;
+    }
+  }
+  .avatar {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .face {
+    padding: 1rem;
+    position: relative;
+    border-radius: 100%;
+    width: 10rem;
+    height: 10rem;
+    margin-top: -2rem;
+    @include xs {
+      width: 6rem;
+      height: 6rem;
+      margin-top: -2rem;
+    }
+    border: 0.5rem solid $greenColor;
+    .eyes {
+      padding: 1rem 0.75rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      @include xs {
+        padding: 0rem 0 1rem;
+      }
+    }
+    .eye {
+      padding: 0rem;
+      border-radius: 100%;
+      border: 0.15rem solid $greenColor;
+      width: 2rem;
+      height: 2rem;
+      animation: rotateEye 5s infinite linear;
+      .circle {
+        width: 1rem;
+        height: 1rem;
+        background-color: $greenColor;
+        border-radius: 100%;
+      }
+      @include xs {
+        width: 1.25rem;
+        height: 1.25rem;
+        .circle {
+          width: 0.5rem;
+          height: 0.5rem;
+        }
+      }
+    }
+    .mouth {
+      width: 3rem;
+      height: 2rem;
+      border-radius: 100%;
+      border: 0.25rem solid $greenColor;
+      margin: auto;
+      @include xs {
+        height: 1rem;
+        width: 2rem;
+      }
+    }
+  }
+}
+
+@keyframes rotateEye {
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*#endregion */
+
+/*#region Inputs & Buttons */
+input {
+  box-shadow: $inputShadow;
+  background-color: $bodyColor;
+  border-radius: $radiusS;
+  padding: 0 0.5rem;
+  height: 3rem;
+  font-size: 1rem;
+  border: none;
+  width: 100%;
+  &:focus {
+    outline: none;
+  }
+}
+inputs {
+  padding: 1rem;
+}
+textarea {
+  box-shadow: $inputShadow;
+  background-color: $bodyColor;
+  border-radius: $radiusB;
+  padding: 0.5rem;
+  resize: none;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.buttons {
+  padding: 1rem;
+  button {
+    cursor: pointer;
+    border: none;
+    box-shadow: $cardShadow;
+    color: $bodyColor;
+    background: $gradient;
+    height: 3rem;
+    padding: 0.5rem;
+    border-radius: $radiusS;
+    font-size: 1rem;
+    width: 100%;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+/*#endregion */
+
+/*#region Custom Select */
+.customSelect {
+  padding: 0.5rem 0;
+  height: 3.5rem;
+  max-width: 14rem;
+  margin: auto;
+  position: relative;
+
+  .options {
+    position: absolute;
+    max-height: 2.5rem;
+    overflow: hidden;
+    border-radius: $radiusS;
+    box-shadow: $cardShadow;
+    width: 100%;
+    background-color: $bodyColor;
+    z-index: 1000;
+
+    .selected {
+      padding-right: 0.5rem;
+      height: 2.5rem;
+      font-size: 1rem;
+
+      p {
+        line-height: 2.5rem;
+        margin: 0;
+      }
+      i {
+        position: absolute;
+        left: 1rem;
+        top: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          color: $blueColor;
+        }
+      }
+    }
+    .others {
+      li {
+        padding-right: 0.5rem;
+      }
+      p {
+        line-height: 2rem;
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        cursor: pointer;
+        &:hover {
+          color: $blueColor;
+        }
+      }
+    }
+    &.opened {
+      max-height: 14.5rem;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Add Button */
+.addButton {
+  color: $bodyColor;
+  position: fixed;
+  border-radius: $radiusB;
+  width: 100%;
+  max-width: 4.5rem;
+  overflow: hidden;
+  background: $gradient;
+  bottom: 1rem;
+  left: 1rem;
+  height: 4rem;
+  padding: 1rem;
+  display: flex;
+  @include sm {
+    bottom: 6rem;
+    height: 3rem;
+    padding: 0.5rem;
+    max-width: 3rem;
+  }
+  span {
+    color: $bodyColor;
+    opacity: 0;
+    font-size: 1.4rem;
+    @include sm {
+      font-size: 1.1rem;
+    }
+  }
+  i {
+    position: absolute;
+    left: 1.5rem;
+    color: $bodyColor;
+    font-size: 2rem;
+    @include sm {
+      font-size: 1.5rem;
+      left: 0.9rem;
+      top: 0.75rem;
+    }
+  }
+  &:hover {
+    max-width: 9.5rem;
+    span {
+      opacity: 1;
+    }
+    @include sm {
+      max-width: 7rem;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Filters */
+.filters {
+  position: relative;
+  padding: 0 0 1rem;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0.25rem;
+    bottom: 0;
+    background: $gradient;
+    border-radius: 0.25rem;
+    left: 0;
+  }
+  .container-fluid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    > div {
+      width: calc(33.33% - 1rem);
+      max-width: 17rem;
+      @include sm {
+        width: calc(50% - 1rem);
+      }
+    }
+  }
+  .search {
+    @include sm {
+      width: 100% !important;
+    }
+    position: relative;
+    input {
+      padding-left: 2.5rem;
+    }
+    i {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.5rem;
+      font-size: 1.5rem;
+      &:hover {
+        color: $blueColor;
+      }
+    }
+  }
+}
+
+/*#endregion */
+
+/*#region Page Title */
+.pageTitle {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  h1 {
+    position: relative;
+    width: fit-content;
+    padding: 0 0.5rem 0.5rem;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 0.25rem;
+      bottom: 0;
+      background: $gradient;
+      border-radius: 0.25rem;
+    }
+  }
+}
+
+/*#endregion */
+
+/*#region Category Cards */
+.categoryCard {
+  max-width: 15rem;
+  margin: auto;
+  text-align: center;
+  h4 {
+    margin: 0rem auto 1.5rem;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 3rem;
+      height: 0.25rem;
+      background: $gradient;
+      border-radius: 0.25rem;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .subjects,
+  .followers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    p {
+      margin: 0;
+    }
+    i {
+      font-size: 1.5rem;
+    }
+  }
+  &:hover {
+    transform: scale(1.05);
+    h4::after {
+      width: 100%;
+    }
+  }
+}
+
+/*#endregion */
+
+/*#region Subject Cards */
+.subjectCard {
+  max-width: 40rem;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  .name {
+    max-width: 15rem;
+  }
+  .details {
+  }
+  .followers,
+  .resources {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    p {
+      margin: 0 0 0 1rem;
+    }
+    i {
+      font-size: 1.5rem;
+    }
+  }
+  &:hover {
+    transform: scale(1.05);
+    h4::after {
+      width: 100%;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Resource Cards */
+.resourceCard {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 40rem;
+  margin: auto;
+  .name {
+    padding: 0 1rem;
+    width: 12rem;
+    a {
+      display: block;
+      margin: auto;
+      font-size: 1rem;
+      &:hover {
+        transform: scale(1.05);
+        color: $blueColor;
+      }
+    }
+  }
+  .detail span:first-child {
+    font-weight: bold;
+  }
+  > div {
+    width: calc(50% - 6rem);
+    padding: 0 1rem;
+    p {
+      margin: auto 0.25rem;
+      display: flex;
+      justify-content: space-between;
+      button {
+        border: none;
+        cursor: pointer;
+        font-size: 1.3rem;
+        &.like i {
+          color: $greenColor;
+        }
+        &.dislike i {
+          color: $redColor;
+        }
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+    @include sm {
+      width: 50%;
+    }
+    @include xxs {
+      width: 100%;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Login Cards */
+.loginCard {
+  h4 {
+    font-size: 1.5rem;
+  }
+}
+/*#endregion */
+
+/*#region Menu */
+.menu {
+  z-index: 1000;
+  position: fixed;
+  padding: 1rem;
+  background-color: $bodyColor;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 7rem;
+
+  .menuOpen {
+    position: fixed;
+    z-index: 999;
+    border-radius: $radiusB 0 0 $radiusB;
+    background: $bodyColor;
+    right: 1rem;
+    overflow: hidden;
+    width: 100%;
+    height: calc(100% - 2rem);
+    box-shadow: $cardShadow;
+    max-width: 0;
+    padding: 1rem 2rem 1rem 1rem;
+    &.opened {
+      right: 5rem;
+      max-width: 18rem;
+    }
+  }
+
+  .menuSearch {
+    position: relative;
+    input {
+      padding-left: 2.5rem;
+    }
+    i {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.5rem;
+      font-size: 1.5rem;
+      &:hover {
+        color: $blueColor;
+      }
+    }
+  }
+
+  .navBar {
+    position: relative;
+    z-index: 1000;
+    display: grid;
+    border-radius: $radiusB;
+    background: $gradient;
+    width: 100%;
+    height: 100%;
+    box-shadow: $cardShadow;
+  }
+
+  .navItem {
+    position: relative;
+    text-align: center;
+    i {
+      font-size: 2rem;
+      color: $bodyColor;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      &:hover {
+        transform: translate(-50%, -50%) scale(1.1);
+      }
+    }
+  }
+
+  @include sm {
+    top: auto;
+    bottom: 0;
+    height: 5.5rem;
+    width: 100vw;
+    .navBar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .navItem i {
+        font-size: 1.5rem;
+      }
+    }
+    .menuOpen {
+      border-radius: $radiusB $radiusB 0 0;
+      bottom: 1rem;
+      right: 1rem !important;
+      width: calc(100% - 2rem);
+      height: 12rem;
+      max-height: 0;
+      max-width: unset !important;
+      &.opened {
+        padding: 1rem 1rem 4rem;
+        bottom: 3rem;
+        max-height: 18rem;
+      }
+    }
+  }
+}
+/*#endregion */
+
+/*#region Upload Card */
+.uploadCard {
+  padding: 2rem 1rem;
+  margin: 5rem auto 1rem;
+  max-width: 30rem;
+
+  h4 {
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  input {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/*#endregion */
+
+/*#region Categories Page */
+.categoriesPage {
+  .row {
+    padding-top: 1rem;
+    .col-12 {
+      padding: 1rem;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Resource Page */
+.resourcesPage {
+  padding-top: 1rem;
+  .row {
+    .col-12 {
+      padding: 1rem;
+    }
+  }
+}
+/*#endregion */
+
+/*#region Subjects Page */
+.subjectsPage {
+  padding-top: 1rem;
+  .row {
+    .col-12 {
+      padding: 1rem;
+    }
+  }
+}
+/*#endregion */

@@ -1,0 +1,23 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+export default async function handle(req, res) {
+  if (req.body.title) {
+    const subject = await prisma.subject.create({
+      data: {
+        title: `${req.body.title}`,
+        category: {
+          connect: { title: req.query.category },
+        },
+      },
+    });
+    const update = await prisma.category.update({
+      where: { title: req.query.category },
+      data: { subjectsNumber: { increment: 1 } },
+    });
+
+    if (subject) {
+      res.redirect(`/categories/${req.query.category}/subjects`);
+    }
+  }
+}
