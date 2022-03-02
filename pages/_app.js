@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { createWrapper } from "next-redux-wrapper";
 import { useDispatch } from "react-redux";
 import { setAccessToken, setUser } from "../app/features/tokenSlice";
+import Head from "next/head";
 
 import store from "../app/store";
 
@@ -40,6 +41,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Layout>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8"></meta>
+        <title>Resource Finder</title>
+      </Head>
       <Provider store={store}>
         <Component {...pageProps} />
       </Provider>

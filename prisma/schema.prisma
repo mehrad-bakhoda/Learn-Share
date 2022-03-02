@@ -21,7 +21,7 @@ model Category {
   // followers      Int?       @default(0)
   // Resource       Resource[]
   // Resource       Resource[]
-  User           User?     @relation(fields: [userId], references: [id])
+  user           User?     @relation(fields: [userId], references: [id])
   userId         Int?
 }
 
@@ -41,7 +41,7 @@ model Subject {
   resources       Resource[]
   resourcesNumber Int        @default(0)
 
-  User   User? @relation(fields: [userId], references: [id])
+  user   User? @relation(fields: [userId], references: [id])
   userId Int?
 }
 
@@ -62,7 +62,7 @@ model Resource {
   language  String   @default("Not set") @db.VarChar(255)
   // categoryId      Int?
   // authorId        Int?
-  User      User?    @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id])
   userId    Int?
 }
 
@@ -82,6 +82,8 @@ model User {
   resources  Resource[]
   createdAt  DateTime   @default(now()) @map(name: "created_at")
   updatedAt  DateTime   @default(now()) @map(name: "updated_at")
+  likes      Int[]
+  dislikes   Int[]
 
   profile Profile?
   @@map(name: "users")
