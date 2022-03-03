@@ -10,7 +10,7 @@ import { prisma } from "../../lib/prisma";
 export default async function handle(req, res) {
   const salt = await bcrypt.genSalt(10);
 
-  const body = JSON.parse(req.body);
+  const body = await JSON.parse(req.body);
   if (body.email && body.password && body.passwordConfirmation) {
     if (body.passwordConfirmation === body.password) {
       const checkIfExist = await prisma.user.findUnique({

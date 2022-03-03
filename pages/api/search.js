@@ -30,7 +30,8 @@ export default async function handle(req, res) {
       res.redirect(`/search/subject/${req.body.name}`);
     } else if (resource && resource.length !== 0) {
       res.redirect(`/search/resource/${req.body.name}`);
+    } else {
+      res.redirect(`/${req.body.name}/not-found`);
     }
-    res.redirect(`/${req.body.name}/not-found`);
   }
 }

@@ -40,7 +40,7 @@ export default async function handle(req, res) {
           }
         }
 
-        if (!category) return res.status(401);
+        if (!subject) res.status(401);
       } catch (e) {
         console.log(e);
         res.status(401);
@@ -48,5 +48,5 @@ export default async function handle(req, res) {
       }
     }
   }
-  return res.status(400);
+  res.status(400);
 }
