@@ -12,7 +12,7 @@ export default async function handle(req, res) {
       const getToken = cookie.parse(req.headers.cookie);
       const token = getToken.refreshToken;
 
-      if (!token) return res.status(401);
+      if (!token) res.status(401);
       let payload = null;
 
       try {
@@ -39,24 +39,23 @@ export default async function handle(req, res) {
             },
           });
 
-          const update = await prisma.subject.update({
-            where: { title: req.query.subject },
-            data: { resourcesNumber: { increment: 1 } },
-          });
           if (resource) {
-            res.redirect(
-              `/categories/${req.query.category}/subjects/${req.query.subject}/resources`
-            );
+            const update = await prisma.subject.update({
+              where: { title: req.query.subject },
+              data: { resourcesNumber: { increment: 1 } },
+            });
+            if (update) {
+              res.redirect(
+                `/categories/${req.query.category}/subjects/${req.query.subject}/resources`
+              );
+            }
           }
         }
-
-        if (!resource) return res.status(401);
-      } catch (e) {
-        console.log(e);
         res.status(401);
+      } catch (e) {
         res.redirect("/login");
       }
     }
   }
-  return res.status(400);
+  res.status(400);
 }
