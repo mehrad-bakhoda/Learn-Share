@@ -1,11 +1,8 @@
 import CustomSelect from "./CustomSelect";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
 
 const Filters = () => {
-  const orderOptions = ["مرتب سازی", "ترتیب 1", "ترتیب 3"];
+  const orderOptions = ["مرتب سازی", "دنبال کنندگان", "تاريخ"];
   const langOptions = ["زبان", "فارسی", "انگلیسی"];
-  // const [term, setTerm] = useState("");
 
   return (
     <div className="filters">

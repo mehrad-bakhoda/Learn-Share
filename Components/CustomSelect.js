@@ -8,8 +8,8 @@ const CustomSelect = (props) => {
     class: "options",
   });
   const choseOption = (option) => {
-    // setCustom({'selected': option, 'class': custom.class});
-    // toggleSelect();
+    setCustom({ selected: option, class: custom.class });
+    toggleSelect();
   };
   const toggleSelect = () => {
     if (custom.class === "options")
@@ -27,7 +27,7 @@ const CustomSelect = (props) => {
           {options.map((option, key) => {
             return (
               <li key={key}>
-                <p onClick={choseOption(option)}>{option}</p>
+                <p onClick={() => choseOption(option)}>{option}</p>
               </li>
             );
           })}
