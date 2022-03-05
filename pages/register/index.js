@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken, setUser } from "../../app/features/tokenSlice";
 
-const SignInPage = () => {
+const SignInPage = ({ path }) => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ const SignInPage = () => {
       .then((data) => {
         dispatch(setAccessToken(data.accessToken));
         dispatch(setUser(data.user));
-        router.replace("/dashboard");
+        router.replace(path);
       })
       .catch((e) => {
         return console.log(e);
@@ -80,3 +80,18 @@ const SignInPage = () => {
 };
 
 export default SignInPage;
+export async function getServerSideProps(context) {
+  if (context.req.headers.referer) {
+    return {
+      props: {
+        path: context.req.headers.referer,
+      },
+    };
+  } else {
+    return {
+      props: {
+        path: "/dashboard",
+      },
+    };
+  }
+}

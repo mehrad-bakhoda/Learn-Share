@@ -17,6 +17,7 @@ export default async function handle(req, res) {
 
       try {
         payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+
         const category = await prisma.category.create({
           data: {
             title: `${req.body.title}`,

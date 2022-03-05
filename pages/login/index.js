@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAccessToken, setUser } from "../../app/features/tokenSlice";
 import { useRouter } from "next/router";
 
-const LoginPage = () => {
+const LoginPage = ({ path }) => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -30,9 +30,11 @@ const LoginPage = () => {
     }).then((data) => {
       if (data.status == 404) {
         router.replace("/register");
+      } else {
+        dispatch(setAccessToken(data.accessToken));
+        dispatch(setUser(data.user));
+        router.replace(path);
       }
-      dispatch(setAccessToken(data.accessToken));
-      dispatch(setUser(data.user));
     });
   };
   return (
@@ -66,3 +68,19 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+export async function getServerSideProps(context) {
+  if (context.req.headers.referer) {
+    return {
+      props: {
+        path: context.req.headers.referer,
+      },
+    };
+  } else {
+    return {
+      props: {
+        path: "/dashboard",
+      },
+    };
+  }
+}
