@@ -59,267 +59,569 @@ function RecoursesPage({ data }) {
 
 export default RecoursesPage;
 export async function getServerSideProps({ params, query }) {
-  if (query.language === "انگلیسی") {
-    const resources = await prisma.resource.findMany({
-      where: {
-        language: "en",
+  if (query.query) {
+    if (query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        where: {
+          language: "en",
+          title: {
+            search: `${query.query}`,
+          },
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.language === "فارسی") {
-    const resources = await prisma.resource.findMany({
-      where: {
-        language: "fa",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "fa",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "تاريخ") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        subject: {
-          title: params.subjectSlug,
+      };
+    }
+    if (query.sort_by === "تاريخ") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
+      const { json } = superjson.serialize(resources);
 
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "دنبال کنندگان") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          followers: "desc",
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        subject: {
-          title: params.subjectSlug,
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "قيمت") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          price: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        subject: {
-          title: params.subjectSlug,
+      };
+    }
+    if (query.sort_by === "قيمت") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "دنبال کنندگان" && query.language === "فارسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          followers: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "fa",
-        subject: {
-          title: params.subjectSlug,
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "fa",
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "دنبال کنندگان" && query.language === "انگلیسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          followers: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "en",
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان" && query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "en",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "تاريخ" && query.language === "انگلیسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "en",
+      };
+    }
+    if (query.sort_by === "تاريخ" && query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "en",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "تاريخ" && query.language === "فارسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "fa",
+      };
+    }
+    if (query.sort_by === "تاريخ" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "fa",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "قيمت" && query.language === "فارسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          price: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "fa",
+      };
+    }
+    if (query.sort_by === "قيمت" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "fa",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by === "قيمت" && query.language === "فارسی") {
-    const resources = await prisma.resource.findMany({
-      orderBy: [
-        {
-          price: "desc",
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      ],
-      where: {
-        language: "fa",
+      };
+    }
+    if (query.sort_by === "قيمت" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          language: "fa",
 
-        subject: {
-          title: params.subjectSlug,
+          subject: {
+            title: params.subjectSlug,
+          },
         },
-      },
-    });
+      });
 
-    const { json } = superjson.serialize(resources);
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (!query.language && !query.sort_by) {
-    const resources = await prisma.resource.findMany({
-      where: {
-        subject: {
-          title: params.subjectSlug,
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
         },
-      },
-    });
-    let percentages = [];
-    resources.map((every) => {
-      const total = every.likes + every.dislikes;
-      const percentage = (every.likes / total) * 100;
-      percentages.push({ percentage: percentage, id: every.id, data: every });
-    });
-    percentages.sort((a, b) => {
-      return b.percentage - a.percentage;
-    });
+      };
+    }
+    if (!query.language && !query.sort_by) {
+      const resources = await prisma.resource.findMany({
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+      let percentages = [];
+      resources.map((every) => {
+        const total = every.likes + every.dislikes;
+        const percentage = (every.likes / total) * 100;
+        percentages.push({ percentage: percentage, id: every.id, data: every });
+      });
+      percentages.sort((a, b) => {
+        return b.percentage - a.percentage;
+      });
 
-    const { json } = superjson.serialize(percentages);
+      const { json } = superjson.serialize(percentages);
 
-    return {
-      props: {
-        data: json,
-      },
-    };
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+  } else {
+    if (query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        where: {
+          language: "en",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        where: {
+          language: "fa",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "تاريخ") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "قيمت") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          language: "fa",
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "دنبال کنندگان" && query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          language: "en",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "تاريخ" && query.language === "انگلیسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          language: "en",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "تاريخ" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          language: "fa",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "قيمت" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          language: "fa",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by === "قيمت" && query.language === "فارسی") {
+      const resources = await prisma.resource.findMany({
+        orderBy: [
+          {
+            price: "desc",
+          },
+        ],
+        where: {
+          language: "fa",
+
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+
+      const { json } = superjson.serialize(resources);
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (!query.language && !query.sort_by) {
+      const resources = await prisma.resource.findMany({
+        where: {
+          subject: {
+            title: params.subjectSlug,
+          },
+        },
+      });
+      let percentages = [];
+      resources.map((every) => {
+        const total = every.likes + every.dislikes;
+        const percentage = (every.likes / total) * 100;
+        percentages.push({ percentage: percentage, id: every.id, data: every });
+      });
+      percentages.sort((a, b) => {
+        return b.percentage - a.percentage;
+      });
+
+      const { json } = superjson.serialize(percentages);
+
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
   }
 }

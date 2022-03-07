@@ -45,47 +45,109 @@ const CategoriesPage = ({ data }) => {
 export default CategoriesPage;
 
 export async function getServerSideProps({ query }) {
-  if (query.sort_by == "تاريخ") {
-    const categories = await prisma.category.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
+  if (query.query) {
+    if (query.sort_by == "تاريخ") {
+      const categories = await prisma.category.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
         },
-      ],
-    });
-    const { json } = superjson.serialize(categories);
+      });
+      const { json } = superjson.serialize(categories);
 
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by == "دنبال کنندگان") {
-    const categories = await prisma.category.findMany({
-      orderBy: [
-        {
-          followers: "desc",
+      return {
+        props: {
+          data: json,
         },
-      ],
-    });
-    const { json } = superjson.serialize(categories);
+      };
+    }
+    if (query.sort_by == "دنبال کنندگان") {
+      const categories = await prisma.category.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+        },
+      });
+      const { json } = superjson.serialize(categories);
 
-    return {
-      props: {
-        data: json,
-      },
-    };
-  }
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
 
-  if (!query.language && !query.sortBy) {
-    const categories = await prisma.category.findMany();
-    const { json } = superjson.serialize(categories);
+    if (!query.language && !query.sortBy) {
+      const categories = await prisma.category.findMany({
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+        },
+      });
+      const { json } = superjson.serialize(categories);
 
-    return {
-      props: {
-        data: json,
-      },
-    };
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+  } else {
+    if (query.sort_by == "تاريخ") {
+      const categories = await prisma.category.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+      });
+      const { json } = superjson.serialize(categories);
+
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by == "دنبال کنندگان") {
+      const categories = await prisma.category.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+      });
+      const { json } = superjson.serialize(categories);
+
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
+
+    if (!query.language && !query.sortBy) {
+      const categories = await prisma.category.findMany();
+      const { json } = superjson.serialize(categories);
+
+      return {
+        props: {
+          data: json,
+        },
+      };
+    }
   }
 }

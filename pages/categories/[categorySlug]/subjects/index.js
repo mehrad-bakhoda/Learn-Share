@@ -45,66 +45,140 @@ const SubjectsPage = ({ data, categorySlug }) => {
 
 export default SubjectsPage;
 export async function getServerSideProps({ params, query }) {
-  if (query.sort_by == "تاريخ") {
-    const subjects = await prisma.subject.findMany({
-      orderBy: [
-        {
-          createdAt: "desc",
+  if (query.query) {
+    if (query.sort_by == "تاريخ") {
+      const subjects = await prisma.subject.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          category: {
+            title: params.categorySlug,
+          },
         },
-      ],
-      where: {
-        category: {
-          title: params.categorySlug,
-        },
-      },
-    });
-    const { json } = superjson.serialize(subjects);
+      });
+      const { json } = superjson.serialize(subjects);
 
-    return {
-      props: {
-        categorySlug: params.categorySlug,
-        data: json,
-      },
-    };
-  }
-  if (query.sort_by == "دنبال کنندگان") {
-    const subjects = await prisma.subject.findMany({
-      orderBy: [
-        {
-          followers: "desc",
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
         },
-      ],
-      where: {
-        category: {
-          title: params.categorySlug,
+      };
+    }
+    if (query.sort_by == "دنبال کنندگان") {
+      const subjects = await prisma.subject.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          category: {
+            title: params.categorySlug,
+          },
         },
-      },
-    });
-    const { json } = superjson.serialize(subjects);
+      });
+      const { json } = superjson.serialize(subjects);
 
-    return {
-      props: {
-        categorySlug: params.categorySlug,
-        data: json,
-      },
-    };
-  }
-
-  if (!query.language && !query.sortBy) {
-    const subjects = await prisma.subject.findMany({
-      where: {
-        category: {
-          title: params.categorySlug,
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
         },
-      },
-    });
-    const { json } = superjson.serialize(subjects);
+      };
+    }
 
-    return {
-      props: {
-        categorySlug: params.categorySlug,
-        data: json,
-      },
-    };
+    if (!query.language && !query.sortBy) {
+      const subjects = await prisma.subject.findMany({
+        where: {
+          title: {
+            search: `${query.query}`,
+          },
+          category: {
+            title: params.categorySlug,
+          },
+        },
+      });
+      const { json } = superjson.serialize(subjects);
+
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
+        },
+      };
+    }
+  } else {
+    if (query.sort_by == "تاريخ") {
+      const subjects = await prisma.subject.findMany({
+        orderBy: [
+          {
+            createdAt: "desc",
+          },
+        ],
+        where: {
+          category: {
+            title: params.categorySlug,
+          },
+        },
+      });
+      const { json } = superjson.serialize(subjects);
+
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
+        },
+      };
+    }
+    if (query.sort_by == "دنبال کنندگان") {
+      const subjects = await prisma.subject.findMany({
+        orderBy: [
+          {
+            followers: "desc",
+          },
+        ],
+        where: {
+          category: {
+            title: params.categorySlug,
+          },
+        },
+      });
+      const { json } = superjson.serialize(subjects);
+
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
+        },
+      };
+    }
+
+    if (!query.language && !query.sortBy) {
+      const subjects = await prisma.subject.findMany({
+        where: {
+          category: {
+            title: params.categorySlug,
+          },
+        },
+      });
+      const { json } = superjson.serialize(subjects);
+
+      return {
+        props: {
+          categorySlug: params.categorySlug,
+          data: json,
+        },
+      };
+    }
   }
 }
