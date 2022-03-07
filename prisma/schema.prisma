@@ -22,24 +22,29 @@ model Category {
   // Resource       Resource[]
   // Resource       Resource[]
   user           User?     @relation(fields: [userId], references: [id])
-  userId         Int?
+  followers      Int       @default(0)
+
+  userId Int?
+
 }
 
 model Subject {
-  id              Int        @id @default(autoincrement())
-  title           String     @unique @db.VarChar(255)
-  createdAt       DateTime   @default(now())
+  id         Int        @id @default(autoincrement())
+  title      String     @unique @db.VarChar(255)
+  createdAt  DateTime   @default(now())
   // updatedAt       DateTime   @updatedAt
   // published       Boolean    @default(false)
   // author          User?      @relation(fields: [authorId], references: [id])
-  category        Category   @relation(fields: [categoryId], references: [id])
-  categoryId      Int
+  category   Category   @relation(fields: [categoryId], references: [id])
+  categoryId Int
   // authorId        Int?
   // Resource        Resource[]
   // followers       Int?
   // resourcesNumber Int?
-  resources       Resource[]
-  resourcesNumber Int        @default(0)
+  resources  Resource[]
+  followers  Int        @default(0)
+
+  resourcesNumber Int @default(0)
 
   user   User? @relation(fields: [userId], references: [id])
   userId Int?
@@ -59,11 +64,13 @@ model Resource {
   likes     Int      @default(0)
   dislikes  Int      @default(0)
   price     String   @default("0") @db.VarChar(255)
-  language  String   @default("Not set") @db.VarChar(255)
+  followers Int      @default(0)
+
+  language String @default("Not set") @db.VarChar(255)
   // categoryId      Int?
   // authorId        Int?
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    Int?
+  user     User?  @relation(fields: [userId], references: [id])
+  userId   Int?
 }
 
 model Profile {
@@ -82,8 +89,10 @@ model User {
   resources  Resource[]
   createdAt  DateTime   @default(now()) @map(name: "created_at")
   updatedAt  DateTime   @default(now()) @map(name: "updated_at")
-  likes      Int[]
-  dislikes   Int[]
+  following  Int[]
+
+  likes    Int[]
+  dislikes Int[]
 
   profile Profile?
   @@map(name: "users")

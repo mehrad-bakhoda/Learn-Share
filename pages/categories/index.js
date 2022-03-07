@@ -44,12 +44,48 @@ const CategoriesPage = ({ data }) => {
 
 export default CategoriesPage;
 
-export async function getServerSideProps() {
-  const categories = await prisma.category.findMany();
-  const { json } = superjson.serialize(categories);
-  return {
-    props: {
-      data: json,
-    },
-  };
+export async function getServerSideProps({ query }) {
+  if (query.sort_by == "تاريخ") {
+    const categories = await prisma.category.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+    });
+    const { json } = superjson.serialize(categories);
+
+    return {
+      props: {
+        data: json,
+      },
+    };
+  }
+  if (query.sort_by == "دنبال کنندگان") {
+    const categories = await prisma.category.findMany({
+      orderBy: [
+        {
+          followers: "desc",
+        },
+      ],
+    });
+    const { json } = superjson.serialize(categories);
+
+    return {
+      props: {
+        data: json,
+      },
+    };
+  }
+
+  if (!query.language && !query.sortBy) {
+    const categories = await prisma.category.findMany();
+    const { json } = superjson.serialize(categories);
+
+    return {
+      props: {
+        data: json,
+      },
+    };
+  }
 }

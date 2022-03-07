@@ -1,7 +1,7 @@
 import CustomSelect from "./CustomSelect";
 
 const Filters = () => {
-  const orderOptions = ["مرتب سازی", "دنبال کنندگان", "تاريخ"];
+  const orderOptions = ["مرتب سازی", "دنبال کنندگان", "تاريخ", "قيمت"];
   const langOptions = ["زبان", "فارسی", "انگلیسی"];
 
   return (
