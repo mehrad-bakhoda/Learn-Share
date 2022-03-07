@@ -3,13 +3,17 @@ import { useState } from "react";
 import CustomSelect from "./CustomSelect";
 
 const Filters = () => {
+  let timer = null;
   const router = useRouter();
   const [path, setPath] = useState(router.asPath);
 
   const orderOptions = ["مرتب سازی", "دنبال کنندگان", "تاريخ", "قيمت"];
   const langOptions = ["زبان", "فارسی", "انگلیسی"];
   const search = (e) => {
-    router.push(path + `?query=${e.target.value}`);
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      router.push(path + `?query=${e.target.value}`);
+    }, 1000);
   };
 
   return (
