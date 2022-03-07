@@ -10,10 +10,12 @@ const Filters = () => {
   const orderOptions = ["مرتب سازی", "دنبال کنندگان", "تاريخ", "قيمت"];
   const langOptions = ["زبان", "فارسی", "انگلیسی"];
   const search = (e) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      router.push(path + `?query=${e.target.value}`);
-    }, 1000);
+    if (e.target.value != " " || e.target.value != "") {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        router.push(path + `?query=${e.target.value}`);
+      }, 1000);
+    }
   };
 
   return (
