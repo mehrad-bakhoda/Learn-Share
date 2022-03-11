@@ -1,6 +1,6 @@
-import CategoryCard from "../../Components/CatergoryCard";
-import Filters from "../../Components/Filters";
-import AddButton from "../../Components/AddButton";
+import CategoryCard from "../../Components/Cards/CategoryCard";
+import Filters from "../../Components/General/Filters";
+import AddButton from "../../Components/General/AddButton";
 import superjson from "superjson";
 
 import { prisma } from "../../lib/prisma";
@@ -11,7 +11,7 @@ const CategoriesPage = ({ data }) => {
   return (
     <div className="innerPage categoriesPage">
       <div className="container-fluid">
-        <Filters />
+        <Filters searching={true} subscribe={true} lang={true} order={true} />
         <div className="row">
           {data.map((category) => {
             return (

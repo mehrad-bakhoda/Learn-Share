@@ -1,6 +1,5 @@
-import UploadSubject from "../../Components/UploadSubject";
-import UploadCategory from "../../Components/UploadCategory";
-import UploadResource from "../../Components/UploadResource";
+import UploadSubject from "../../Components/Upload/UploadSubject";
+import UploadResource from "../../Components/Upload/UploadResource";
 import Head from "next/head";
 
 import { useRouter } from "next/router";
@@ -15,7 +14,6 @@ const UploadPage = () => {
         <meta charSet="utf-8"></meta>
         <title>Upload {uploadType}</title>
       </Head>
-      {uploadType === "category" && <UploadCategory />}
       {uploadType === "subject" && <UploadSubject />}
       {uploadType === "resource" && <UploadResource />}
     </div>

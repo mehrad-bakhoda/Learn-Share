@@ -4,8 +4,7 @@ const AddButton = () => {
             <span>
                 افزودن
             </span>
-            <i className="far fa-plus"></i>
-            
+            <i className="far fa-plus"></i>   
         </div>
     )
 }

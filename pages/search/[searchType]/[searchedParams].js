@@ -1,8 +1,8 @@
-import CategoryCard from "../../../Components/CatergoryCard";
-import SubjectCard from "../../../Components/SubjectCard";
-import ResourceCard from "../../../Components/ResourceCard";
+import CategoryCard from "../../../Components/Cards/CategoryCard";
+import SubjectCard from "../../../Components/Cards/SubjectCard";
+import ResourceCard from "../../../Components/Cards/ResourceCard";
 
-import Filters from "../../../Components//Filters";
+import Filters from "../../../Components/General/Filters";
 import superjson from "superjson";
 
 import { prisma } from "../../../lib/prisma";

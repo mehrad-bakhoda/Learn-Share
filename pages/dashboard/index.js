@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import useSWR from "swr";
 import checkAuthClient from "../../functions/checkAuthClient";
 import axios from "axios";
+import Loading from "../../Components/General/Loading";
 
 function Protected() {
   const [secret, setSecret] = useState(null);
@@ -37,7 +38,7 @@ function Protected() {
     });
   };
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else {
     if (isError) {
       return <div>NOT AUTHENTICATED</div>;

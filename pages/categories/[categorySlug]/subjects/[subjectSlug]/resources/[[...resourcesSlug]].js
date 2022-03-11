@@ -1,9 +1,9 @@
-import ResourceCard from "../../../../../../Components/ResourceCard";
-import AddButton from "../../../../../../Components/AddButton";
+import ResourceCard from "../../../../../../Components/Cards/ResourceCard";
+import AddButton from "../../../../../../Components/General/AddButton";
 import Link from "next/link";
 import superjson from "superjson";
 import { useRouter } from "next/dist/client/router";
-import Filters from "../../../../../../Components/Filters";
+import Filters from "../../../../../../Components/General/Filters";
 
 import { prisma } from "../../../../../../lib/prisma";
 

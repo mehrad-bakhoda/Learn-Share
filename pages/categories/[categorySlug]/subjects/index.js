@@ -1,6 +1,6 @@
-import SubjectCard from "../../../../Components/SubjectCard";
-import Filters from "../../../../Components/Filters";
-import AddButton from "../../../../Components/AddButton";
+import SubjectCard from "../../../../Components/Cards/SubjectCard";
+import Filters from "../../../../Components/General/Filters";
+import AddButton from "../../../../Components/General/AddButton";
 import superjson from "superjson";
 
 import { prisma } from "../../../../lib/prisma";

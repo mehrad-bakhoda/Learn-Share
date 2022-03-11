@@ -8,4 +8,4 @@ const RadioSelect = (props) => {
     )
 }
 
-return RadioSelect;
+export default RadioSelect;

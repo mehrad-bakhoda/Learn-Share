@@ -23,6 +23,27 @@ body {
   }
 }
 
+.loading {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bodyColor;
+  i {
+    font-size: 2.5rem;
+    color: $blueColor;
+  }
+  &.loaded {
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -224,7 +245,7 @@ textarea {
     box-shadow: $cardShadow;
     width: 100%;
     background-color: $bodyColor;
-    z-index: 1000;
+    z-index: 900;
 
     .selected {
       padding-right: 0.5rem;
@@ -339,18 +360,35 @@ textarea {
     justify-content: space-around;
     align-items: center;
     > div {
-      width: calc(33.33% - 1rem);
-      max-width: 17rem;
+      width: calc(25% - 1rem);
+      
+      @include md {
+        width: 50%;
+      }
       @include sm {
         width: calc(50% - 1rem);
       }
     }
+    .buttons {
+      max-width: 10rem;
+      @include md {
+        order: -1;
+      }
+      @include xs {
+        width: 8rem;
+      }
+    }
   }
   .search {
-    @include sm {
-      width: 100% !important;
-    }
+    max-width: 20rem;
     position: relative;
+    @include md {
+      order: -2;
+    }
+    @include xs {
+      width: calc(100% - 8rem) !important;
+    }
+    
     input {
       padding-left: 2.5rem;
     }
@@ -364,6 +402,7 @@ textarea {
       }
     }
   }
+  
 }
 
 /*#endregion */
