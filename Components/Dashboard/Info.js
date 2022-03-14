@@ -1,7 +1,7 @@
-const Info = () => {
+const Info = ({state}) => {
   return (
-    <div className="info">
-      <form>
+    <div className={`info ${state ? "shown" : "hidden"}`}>
+    <form>
         <div className="inputs">
           <div className="inputRow">
             <label>شماره تماس</label>

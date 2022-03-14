@@ -5,6 +5,7 @@ import useSWR from "swr";
 import checkAuthClient from "../../functions/checkAuthClient";
 import axios from "axios";
 import Loading from "../../Components/General/Loading";
+import Dashboard from "../../Components/Dashboard/Dashboard";
 
 function Protected() {
   const [secret, setSecret] = useState(null);
@@ -44,11 +45,12 @@ function Protected() {
       return <div>NOT AUTHENTICATED</div>;
     } else {
       return (
-        <div>
+        <div className="dashboardPage">
           Welcome to Dashboard
           <form onSubmit={handleSubmit}>
             <button type="submit">Log out</button>
           </form>
+          <Dashboard />
         </div>
       );
     }

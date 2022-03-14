@@ -9,6 +9,7 @@ import { prisma } from "../../lib/prisma";
 
 export default async function handle(req, res) {
   if (req.method === "POST") {
+    console.log("meow");
     const { email, password } = JSON.parse(req.body);
     const user = await prisma.user.findUnique({
       where: {
