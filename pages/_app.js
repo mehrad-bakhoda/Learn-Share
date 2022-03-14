@@ -14,6 +14,7 @@ import Head from "next/head";
 import store from "../app/store";
 
 import Layout from "../Components/Layout";
+import Loading from "../Components/General/Loading";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }) {
     }, 600000);
   }, []);
 
-  if (loading) return <div>Loading....</div>;
+  if (loading) return <Loading />;
 
   return (
     <Layout>

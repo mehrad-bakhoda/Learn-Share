@@ -13,7 +13,7 @@ function RecoursesPage({ data }) {
   return (
     <div className="innerPage resourcesPage">
       <div className="container-fluid">
-        <Filters />
+        <Filters searching={true} subscribe={true} lang={true} order={true} />
 
         <div className="row">
           {data.map((resource) => {

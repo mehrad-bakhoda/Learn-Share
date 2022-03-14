@@ -11,7 +11,7 @@ const CategoriesPage = ({ data }) => {
   return (
     <div className="innerPage categoriesPage">
       <div className="container-fluid">
-        <Filters searching={true} subscribe={true} lang={true} order={true} />
+        <Filters searching={true} subscribe={false} lang={false} order={true} />
         <div className="row">
           {data.map((category) => {
             return (

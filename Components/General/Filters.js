@@ -17,6 +17,18 @@ const Filters = ({ order, lang, searching, subscribe }) => {
       }, 1000);
     }
   };
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("myParam");
+    console.log(myParam);
+    fetch("/api/subscribe", {
+      method: "POST",
+      body: JSON.stringify({
+        data: email,
+      }),
+    });
+  };
 
   return (
     <div className="filters">
@@ -40,7 +52,11 @@ const Filters = ({ order, lang, searching, subscribe }) => {
         )}
         {subscribe && (
           <div className="buttons">
-            <button type="submit" className="subscribe">
+            <button
+              type="submit"
+              onClick={handleSubscribe}
+              className="subscribe"
+            >
               دنبال کردن
             </button>
           </div>

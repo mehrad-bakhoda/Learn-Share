@@ -4,7 +4,6 @@ import { verify } from "jsonwebtoken";
 import cookie from "cookie";
 export default async function handle(req, res) {
   if (!req.headers.cookie) {
-    console.log(req.headers.cookie);
     res.redirect("/login");
   }
   if (req.headers.cookie) {
@@ -59,6 +58,7 @@ export default async function handle(req, res) {
                   dislikes: { increment: 1 },
                 },
               });
+              console.log(dislike);
 
               if (dislike) {
                 const update = await prisma.user.update({

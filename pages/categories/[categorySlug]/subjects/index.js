@@ -13,7 +13,7 @@ const SubjectsPage = ({ data, categorySlug }) => {
   return (
     <div className="innerPage subjectsPage">
       <div className="container-fluid">
-        <Filters />
+        <Filters searching={true} subscribe={true} lang={false} order={true} />
         <div className="row">
           {data.map((subject) => {
             return (

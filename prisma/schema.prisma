@@ -9,20 +9,15 @@ datasource db {
 }
 
 model Category {
-  id             Int       @id @default(autoincrement())
-  createdAt      DateTime  @default(now())
-  // updatedAt      DateTime   @updatedAt
-  title          String    @unique @db.VarChar(255)
-  // published      Boolean    @default(false)
-  // author         User?      @relation(fields: [authorId], references: [id])
-  // authorId       Int?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title     String   @unique @db.VarChar(255)
+
   subjects       Subject[]
   subjectsNumber Int       @default(0)
-  // followers      Int?       @default(0)
-  // Resource       Resource[]
-  // Resource       Resource[]
-  user           User?     @relation(fields: [userId], references: [id])
-  followers      Int       @default(0)
+
+  user      User? @relation(fields: [userId], references: [id])
+  followers Int   @default(0)
 
   userId Int?
 
@@ -32,15 +27,8 @@ model Subject {
   id         Int        @id @default(autoincrement())
   title      String     @unique @db.VarChar(255)
   createdAt  DateTime   @default(now())
-  // updatedAt       DateTime   @updatedAt
-  // published       Boolean    @default(false)
-  // author          User?      @relation(fields: [authorId], references: [id])
   category   Category   @relation(fields: [categoryId], references: [id])
   categoryId Int
-  // authorId        Int?
-  // Resource        Resource[]
-  // followers       Int?
-  // resourcesNumber Int?
   resources  Resource[]
   followers  Int        @default(0)
 
@@ -54,12 +42,8 @@ model Resource {
   id        Int      @id @default(autoincrement())
   title     String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
-  // updatedAt       DateTime  @updatedAt
   url       String   @db.VarChar(255)
-  // published       Boolean   @default(false)
-  // author          User?     @relation(fields: [authorId], references: [id])
   subject   Subject? @relation(fields: [subjectId], references: [id])
-  // category        Category? @relation(fields: [categoryId], references: [id])
   subjectId Int
   likes     Int      @default(0)
   dislikes  Int      @default(0)
@@ -67,8 +51,6 @@ model Resource {
   followers Int      @default(0)
 
   language String @default("Not set") @db.VarChar(255)
-  // categoryId      Int?
-  // authorId        Int?
   user     User?  @relation(fields: [userId], references: [id])
   userId   Int?
 }
@@ -81,15 +63,19 @@ model Profile {
 }
 
 model User {
-  id         Int        @id @default(autoincrement())
-  email      String     @unique
-  password   String
-  categories Category[]
-  subjects   Subject[]
-  resources  Resource[]
-  createdAt  DateTime   @default(now()) @map(name: "created_at")
-  updatedAt  DateTime   @default(now()) @map(name: "updated_at")
-  following  Int[]
+  id                 Int        @id @default(autoincrement())
+  email              String     @unique
+  password           String
+  categories         Category[]
+  subjects           Subject[]
+  resources          Resource[]
+  createdAt          DateTime   @default(now()) @map(name: "created_at")
+  updatedAt          DateTime   @default(now()) @map(name: "updated_at")
+  savedResources     Int[]
+  followedCategories Int[]
+  followedSubjects   Int[]
+
+
 
   likes    Int[]
   dislikes Int[]

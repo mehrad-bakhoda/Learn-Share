@@ -90,7 +90,7 @@ export async function getServerSideProps(context) {
   } else {
     return {
       props: {
-        path: "/dashboard",
+        path: "/",
       },
     };
   }
