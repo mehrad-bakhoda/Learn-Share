@@ -1,7 +1,7 @@
-const Info = ({state}) => {
+const Info = ({ state, handleExit }) => {
   return (
     <div className={`info ${state ? "shown" : "hidden"}`}>
-    <form>
+      <form>
         <div className="inputs">
           <div className="inputRow">
             <label>شماره تماس</label>
@@ -26,9 +26,11 @@ const Info = ({state}) => {
         </div>
       </form>
       <div className="buttons">
-        <button type="submit" className="logout">
-          خروج
-        </button>
+        <form onSubmit={handleExit}>
+          <button type="submit" className="logout">
+            خروج
+          </button>
+        </form>
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ function Protected() {
     setLoading(false);
   }, [data, error]);
 
-  const handleSubmit = (e) => {
+  const handleExit = (e) => {
     fetch("/api/logout", {
       method: "POST",
       credentials: "include",
@@ -46,11 +46,7 @@ function Protected() {
     } else {
       return (
         <div className="dashboardPage">
-          Welcome to Dashboard
-          <form onSubmit={handleSubmit}>
-            <button type="submit">Log out</button>
-          </form>
-          <Dashboard />
+          <Dashboard handleExit={handleExit} />
         </div>
       );
     }
