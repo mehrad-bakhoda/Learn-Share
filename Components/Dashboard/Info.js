@@ -1,15 +1,15 @@
-const Info = ({ state, handleExit }) => {
+const Info = ({ state, handleExit, phoneNumber, email }) => {
   return (
     <div className={`info ${state ? "shown" : "hidden"}`}>
       <form>
         <div className="inputs">
           <div className="inputRow">
             <label>شماره تماس</label>
-            <input type="text" />
+            <input type="text" value={phoneNumber ? phoneNumber : ""} />
           </div>
           <div className="inputRow">
             <label>ایمیل</label>
-            <input type="email" />
+            <input type="email" value={email ? email : ""} />
           </div>
           <div className="inputRow">
             <label>رمز عبور</label>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Data from "./Data";
 import Info from "./Info";
 
-const Dashboard = ({ handleExit }) => {
+const Dashboard = ({ handleExit, phoneNumber, email }) => {
   const [tab, setTab] = useState("data");
   return (
     <div className="dashboardContent">
@@ -22,7 +22,12 @@ const Dashboard = ({ handleExit }) => {
           مشخصات من
         </button>
       </div>
-      <Info state={tab == "info"} handleExit={handleExit} />
+      <Info
+        state={tab == "info"}
+        handleExit={handleExit}
+        phoneNumber={phoneNumber}
+        email={email}
+      />
       <Data state={tab == "data"} />
     </div>
   );
