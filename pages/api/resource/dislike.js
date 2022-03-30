@@ -58,7 +58,6 @@ export default async function handle(req, res) {
                   dislikes: { increment: 1 },
                 },
               });
-              console.log(dislike);
 
               if (dislike) {
                 const update = await prisma.user.update({

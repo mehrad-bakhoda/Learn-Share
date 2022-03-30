@@ -27,7 +27,6 @@ export default async function handle(req, res) {
         if (user) {
           if (user.likes.find((e) => e === resource.id) === undefined) {
             if (user.dislikes.find((e) => e === resource.id) === undefined) {
-              console.log("moew");
               user.likes.push(resource.id);
 
               const like = await prisma.resource.update({
