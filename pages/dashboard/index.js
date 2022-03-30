@@ -42,6 +42,12 @@ function Protected({ phoneNumber, email }) {
       dispatch(setUser(data.user));
     });
   };
+  const handleUpdate = (e) => {
+    fetch("/api/updateUser", {
+      method: "POST",
+    });
+  };
+
   if (loading) {
     return <Loading />;
   } else {
@@ -52,6 +58,7 @@ function Protected({ phoneNumber, email }) {
         <div className="dashboardPage">
           <Dashboard
             handleExit={handleExit}
+            handleUpdate={handleUpdate}
             phoneNumber={phoneNumber}
             email={email}
           />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Data from "./Data";
 import Info from "./Info";
 
-const Dashboard = ({ handleExit, phoneNumber, email }) => {
+const Dashboard = ({ handleExit, phoneNumber, email, handleUpdate }) => {
   const [tab, setTab] = useState("data");
   return (
     <div className="dashboardContent">
@@ -27,6 +27,7 @@ const Dashboard = ({ handleExit, phoneNumber, email }) => {
         handleExit={handleExit}
         phoneNumber={phoneNumber}
         email={email}
+        handleUpdate={handleUpdate}
       />
       <Data state={tab == "data"} />
     </div>
