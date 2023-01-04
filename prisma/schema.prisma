@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["dataproxy", "fullTextSearch"]
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -20,7 +20,6 @@ model Category {
   followers Int   @default(0)
 
   userId Int?
-
 }
 
 model Subject {
@@ -76,11 +75,10 @@ model User {
   followedCategories Int[]
   followedSubjects   Int[]
 
-
-
   likes    Int[]
   dislikes Int[]
 
   profile Profile?
+
   @@map(name: "users")
 }
