@@ -19,25 +19,23 @@ import Loading from "../Components/General/Loading";
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchData = async () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    await refreshToken().then((data) => {
+      if (data.ok) {
+        dispatch(setAccessToken(data.accessToken));
+        dispatch(setUser(data.user));
+      }
+      setLoading(false);
+    });
+    setInterval(async () => {
       await refreshToken().then((data) => {
         if (data.ok) {
           dispatch(setAccessToken(data.accessToken));
           dispatch(setUser(data.user));
         }
-        setLoading(false);
       });
-      setInterval(async () => {
-        await refreshToken().then((data) => {
-          if (data.ok) {
-            dispatch(setAccessToken(data.accessToken));
-            dispatch(setUser(data.user));
-          }
-        });
-      }, 600000);
-    };
+    }, 600000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
